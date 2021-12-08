@@ -89,7 +89,7 @@ var endGame = function() {
   }
 
   //play again?
-  var playAgainConfirm = windows.confirm("Would you like to play again?");
+  var playAgainConfirm = window.confirm("Would you like to play again?");
 
   if(playAgainConfirm) {
     //restart game
@@ -100,4 +100,5 @@ var endGame = function() {
 };
 
 //page load game starts
+debugger;
 startGame();
