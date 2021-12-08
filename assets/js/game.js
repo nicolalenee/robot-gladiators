@@ -17,7 +17,7 @@ var enemyAttack = 12;
 
 //fight function expression
 var fight = function(enemyName) {
-    while(playerHealth > 0 && enemyHealth > 0) {
+    while (playerHealth > 0 && enemyHealth > 0) {
         //ask player to play or skip 
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
@@ -43,7 +43,7 @@ var fight = function(enemyName) {
         //check enemy's health
         if (enemyHealth <= 0) {
             window.alert(`${enemyName} has died!`);
-            
+
             //award player money for winning
             playerMoney = playerMoney + 20;
 
@@ -51,26 +51,26 @@ var fight = function(enemyName) {
             break;
         } else {
             window.alert(`${enemyName} still has ${enemyHealth} health left.`);
-        } 
+        }
+        
         //remove player's health by subtracting the amount set in the enemy's attack variable
         playerHealth = playerHealth - enemyAttack;
         console.log(`${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} health left.`);
-
+        
         //check player's health
         if (playerHealth <= 0) {
-            window.alert (`${playerName} has died!`);
-            //leave while() loop if player is dead
+            window.alert(`${playerName} has died!`);
+            // leave while() loop if player is dead
             break;
         } else {
             window.alert(`${playerName} still has ${playerHealth} health left.`);
         }
-    }  
+    }
 };
 
-
 //calls the fight function multiple times for each enemy-robot
-for(var i = 0; i < enemyNames.length; i++) {
+for (var i = 0; i < enemyNames.length; i++) {
     var pickedEnemyName = enemyNames[i];
     enemyHealth = 50;
     fight(pickedEnemyName);
-};
+}
