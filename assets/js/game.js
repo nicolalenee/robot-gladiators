@@ -21,13 +21,13 @@ var fight = function(enemyName) {
 
       if (confirmSkip) {
         window.alert(`${playerName} has decided to skip this fight. Goodbye!`);
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("playerMoney", playerMoney);
         break;
       }
     }
     //if fight
-    enemyHealth = enemyHealth - playerAttack;
+    enemyHealth = Math.max(0, enemyHealth - playerAttack);
     console.log(
       `${playerName} attcked ${enemyName}. ${enemyName} now has ${enemyHealth} health remaining.`
     );
@@ -42,7 +42,10 @@ var fight = function(enemyName) {
     }
 
     //remove player health
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
+    //TEST
+    console.log(playerHealth)
     console.log(
       `${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} remaining.`
     );
@@ -68,7 +71,11 @@ var startGame = function () {
     if (playerHealth > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
       var pickedEnemyName = enemyNames[i];
-      enemyHealth = 50;
+      //generate random damage 
+      var damage = randomNumber(playerAttack - 3, playerAttack);
+      enemyHealth = Math.max(0, enemyHealth - damage);
+      //TEST
+      console.log(enemyHealth);
       fight(pickedEnemyName);
       //if we're not at the last enemy in the array
       if (playerHealth > 0 && i < enemyNames.length - 1) {
@@ -118,7 +125,7 @@ var shop = function () {
       window.alert("Refilling player's health by 20 for 7 dollars.");
       //+health -money
       playerHealth = playerHealth + 20;
-      playerMoney =playerMoney - 7;
+      playerMoney = playerMoney - 7;
       } else {
         window.alert("You don't have enough money!");
       }
@@ -150,6 +157,13 @@ var shop = function () {
     break;
   }
 }
+
+//function to generate a random numeric value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
 
 
 //page load game starts
