@@ -6,24 +6,42 @@ var randomNumber = function(min, max) {
 };
 
 
+//fight or skip round logic function
+var fightOrSkip = function() {
+  //ask player if they'd like to fight or skip using the fightOrSkip function
+  var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+  //Conditonal Recursive Function Call
+  if (!promptFight){
+    window.alert("You need to provide a valid answer! Please try again.");
+    return fightOrSkip();
+  }
+  //if player picks "skip", confirm then stop the loop
+  promptFight = promptFight.toLowerCase();
+  if(promptFight === "skip") {
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+    //if yes then leave the fight
+    if (confirmSkip) {
+      window.alert(`${playerInfo.name} has decided to skip this fight. Goodbye!`);
+      playerInfo.money = Math.max(0, playerInfo.money - 10);
+      //return true if player wants to leave
+      return true;
+    }
+  }
+
+  // if fight return false (player does NOT want to skip the fight)
+  return false;
+}
+
 //fight function
 var fight = function(enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-    //if skip and confirm skip, stop loop
-    if(promptFight === "skip" || promptFight === "SKIP") {
-      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-      if (confirmSkip) {
-        window.alert(`${playerInfo.name} has decided to skip this fight. Goodbye!`);
-        playerInfo.money = Math.max(0, playerInfo.money - 10);
-        console.log("playerInfo.money", playerInfo.money);
-        break;
-      }
+    //ask player if they'd like to fight or skip using the fightOrSkip function
+    if (fightOrSkip()) {
+      //if true, break loop (yes the player DOES want to skip the fight)
+      break;
     }
-    //if fight, generate random damage value based on player's attack value
+    //generate random damage value based on player's attack value
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-
     enemy.health = Math.max(0, enemy.health - damage);
     console.log(
       `${playerInfo.name} attacked ${enemy.name}. ${enemy.name} now has ${enemy.health} health remaining.`
@@ -62,7 +80,6 @@ var startGame = function() {
   for (var i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
-      debugger;
       var pickedEnemyObj = enemyInfo[i];
       //generate random damage 
       pickedEnemyObj.health = randomNumber(40, 60);
