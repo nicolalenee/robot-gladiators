@@ -124,22 +124,21 @@ var endGame = function() {
 
 //shop function
 var shop = function () {
-  var shopOptionPrompt = window.prompt("Would you like to REFILL, your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+  var shopOptionPrompt = window.prompt("Would you like to REFILL, your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 for 'REFILL', 2 for 'UPGRADE', or 3 for 'LEAVE'.");
 
+  //convert case statement data type
+  shopOptionPrompt = parseInt(shopOptionPrompt);
   //shop option switch
   switch(shopOptionPrompt) {
-    case "REFILL":
-    case "refill":
+    case 1:
       playerInfo.refillHealth();
       break;
     
-    case "UPGRADE":
-    case "upgrade":
+    case 2:
       playerInfo.upgradeAttack();
       break;
 
-    case "LEAVE":
-    case "leave":
+    case 3:
       window.alert("Leaving the store.");
       //do nothing so function ends
       break;
@@ -186,7 +185,7 @@ var playerInfo = {
       this.money -= 7;
     }
     else {
-      window.alert("You dno't have enough money!");
+      window.alert("You don't have enough money!");
     }
   },
   upgradeAttack: function() {
